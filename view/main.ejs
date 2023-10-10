@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:site" content="website" />
+        <meta name="twitter:title" content="IndianGPT" />
+        <meta name="twitter:description" content="A simple text based Chatbot." />
+        <meta name="twitter:image" content="https://cdn.discordapp.com/attachments/1050293876847542312/1054294111567499284/Screenshot_2022-12-19-12-29-31-24-removebg-preview.png" />
+
+        <meta property='og:title' content='IndianGPT' />
+        <meta property='og:type' content="website" />
+        <meta property='og:description' content='A simple text based Chatbot.' />
+        <meta property="og:image" content='https://cdn.discordapp.com/attachments/1050293876847542312/1054294111567499284/Screenshot_2022-12-19-12-29-31-24-removebg-preview.png' />
+        <meta name="theme-color" content="#82c9f5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/1050293876847542312/1054294111567499284/Screenshot_2022-12-19-12-29-31-24-removebg-preview.png" type="image/x-icon">
+    <title>IndianGPT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+ 
+      <div class="chat-container">
+  <div class="chat-header">
+    <img src="https://cdn.discordapp.com/attachments/1050293876847542312/1054301222313660416/IMG_20221219_130221-removebg-preview.png">
+   <!-- <h1>Indian GPT</h1>-->
+  </div>
+  <div class="chat-messages">
+    <ul id="messages"></ul>
+  </div>
+  <div class="chat-form">
+    <form id="message-form">
+      <input id="message-input" type="text" placeholder="Enter your message..." />
+      <button type="submit"><i class="fa fa-send-o"></i></button>
+      
+    </form>
+  </div>
+</div>
+     <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      const form = document.getElementById('message-form');
+      const input = document.getElementById('message-input');
+      const messages = document.getElementById('messages');
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        socket.emit('send message', input.value);
+        input.value = '';
+      });
+
+      socket.on('message', message => {
+       
+        const li = document.createElement('li');
+        li.textContent = message;
+        messages.appendChild(li);
+      });
+    </script>
+
+  </body>
+</html>
